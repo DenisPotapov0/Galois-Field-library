@@ -55,8 +55,7 @@ GF256_t GF256_Mul(GF256_t a, GF256_t b) {
     uint8_t log_a = logs[a];
     uint8_t log_b = logs[b];
 
-    uint16_t sum = 0;
-    sum          = (log_a + log_b) % (ORDER - 1);
+    uint16_t sum = (log_a + log_b) % (ORDER - 1);
 
     return alogs[sum];
 }
