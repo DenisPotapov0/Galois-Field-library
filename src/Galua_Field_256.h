@@ -1,8 +1,10 @@
 
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Denis Potapov
+
 #include <stdint.h>
 
 #define GF256_t uint8_t  // Galua Field
-#define bool uint8_t
 
 GF256_t GF256_Add(GF256_t a, GF256_t b);
 

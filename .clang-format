@@ -24,4 +24,7 @@ AlignTrailingComments: true
 SpaceBeforeParens: ControlStatements
 SpacesBeforeTrailingComments: 2
 
+MaxEmptyLinesToKeep: 2
+InsertNewlineAtEOF: true
+
 IndentPPDirectives: None
