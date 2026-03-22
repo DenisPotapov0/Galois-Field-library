@@ -46,11 +46,9 @@ GF256_t GF256_Sub(GF256_t a, GF256_t b) {
 }
 
 GF256_t GF256_Mul(GF256_t a, GF256_t b) {
-
     if (!ready_to_work) {
         GF256_init();
     }
-
     if (a == 0 || b == 0) {
         return 0;
     }
@@ -64,11 +62,11 @@ GF256_t GF256_Mul(GF256_t a, GF256_t b) {
 }
 
 GF256_t inverse_mul_element(GF256_t a) {
-    if (!ready_to_work) {
-        GF256_init();
-    }
     if (a == 0) {
         return 0;
+    }
+    if (!ready_to_work) {
+        GF256_init();
     }
     return alogs[255 - logs[a]];
 }
