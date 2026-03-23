@@ -5,9 +5,10 @@ project(GaloisField256 VERSION 1.0.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-# Find required packages
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(CHECK REQUIRED check)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -O0")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+endif()
 
 # Add library
 add_library(GaloisField256 STATIC
@@ -48,6 +49,62 @@ enable_testing()
 
 # Add test to CTest
 add_test(NAME GF256_Field_Tests COMMAND test_gf256)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    find_program(GCOVR_EXECUTABLE gcovr)
+    
+    if(GCOVR_EXECUTABLE)
+        add_custom_target(coverage_text
+            COMMAND ${CMAKE_COMMAND} -E echo "=== Coverage Report ==="
+            COMMAND ${GCOVR_EXECUTABLE} --root ${CMAKE_SOURCE_DIR} 
+                     --exclude "test/.*" 
+                     --exclude ".*_test.*"
+                     --print-summary
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            COMMENT "Generating text coverage report"
+        )
+        
+        add_custom_target(coverage_html
+            COMMAND ${GCOVR_EXECUTABLE} --root ${CMAKE_SOURCE_DIR} 
+                     --exclude "test/.*"
+                     --exclude ".*_test.*"
+                     --html --html-details -o coverage_report.html
+            COMMAND ${CMAKE_COMMAND} -E echo "Coverage report: ${CMAKE_BINARY_DIR}/coverage_report.html"
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            COMMENT "Generating HTML coverage report"
+        )
+        
+        add_custom_target(coverage
+            DEPENDS coverage_text coverage_html
+            COMMENT "Generating all coverage reports"
+        )
+        
+    else()
+        message(WARNING "gcovr not found. Install with: pip install gcovr")
+        
+        find_program(LCOV_EXECUTABLE lcov)
+        find_program(GENHTML_EXECUTABLE genhtml)
+        
+        if(LCOV_EXECUTABLE AND GENHTML_EXECUTABLE)
+            add_custom_target(coverage
+                COMMAND ${LCOV_EXECUTABLE} --capture --directory . 
+                         --output-file coverage.info
+                COMMAND ${LCOV_EXECUTABLE} --remove coverage.info 
+                         '/usr/*' '*/test/*' --output-file coverage.info
+                COMMAND ${GENHTML_EXECUTABLE} coverage.info 
+                         --output-directory coverage_html
+                COMMAND ${CMAKE_COMMAND} -E echo "Coverage report: ${CMAKE_BINARY_DIR}/coverage_html/index.html"
+                WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                COMMENT "Generating coverage report with lcov"
+            )
+        else()
+            message(WARNING "Neither gcovr nor lcov found. Install with: pip install gcovr")
+        endif()
+    endif()
+endif()
+
+# Optional: Add main test runner if needed
+option(BUILD_TESTS "Build test executable" ON)
 
 # Optional: Add main test runner if needed
 option(BUILD_TESTS "Build test executable" ON)
