@@ -1,5 +1,5 @@
 
-#include "Galua_Field_256.h"
+#include "Galois_Field_256.h"
 #include <assert.h>
 #include <stdio.h>
 

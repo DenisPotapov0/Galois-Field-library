@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Denis Potapov
 
-#include "Galua_Field_256.h"
+#include "Galois_Field_256.h"
 
 #define ORDER 256
 

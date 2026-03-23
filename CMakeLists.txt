@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(GaluaField256 VERSION 1.0.0 LANGUAGES C)
+project(GaloisField256 VERSION 1.0.0 LANGUAGES C)
 
 # Set C standard
 set(CMAKE_C_STANDARD 99)
@@ -10,30 +10,30 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(CHECK REQUIRED check)
 
 # Add library
-add_library(GaluaField256 STATIC
-    src/Galua_Field_256.c
+add_library(GaloisField256 STATIC
+    src/Galois_Field_256.c
 )
 
 # Target include directories
-target_include_directories(GaluaField256 PUBLIC
+target_include_directories(GaloisField256 PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # Set properties for the library
-set_target_properties(GaluaField256 PROPERTIES
+set_target_properties(GaloisField256 PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
 )
 
 # Add test executable
 add_executable(test_gf256
-    test/test_Galua_Field_256.c
+    test/test_Galois_Field_256.c
 )
 
 # Link libraries
 target_link_libraries(test_gf256
-    GaluaField256
+    GaloisField256
     ${CHECK_LIBRARIES}
 )
 
@@ -54,7 +54,7 @@ option(BUILD_TESTS "Build test executable" ON)
 
 # Print summary
 message(STATUS "Build configuration:")
-message(STATUS "  - Library: GaluaField256")
+message(STATUS "  - Library: GaloisField256")
 if(BUILD_TESTS)
     message(STATUS "  - Tests: enabled")
     message(STATUS "  - Check library: ${CHECK_LIBRARIES}")
