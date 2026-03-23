@@ -4,14 +4,20 @@
 
 #include "Galois_Field_256.h"
 
-#define ORDER 256
+#ifdef __KERNEL__
+#include <linux/types.h>
+u16 Module        = 0x11B;
+u8  ready_to_work = 0;
+#else
+#include <stdint.h>
+uint16_t Module        = 0x11B;
+uint8_t  ready_to_work = 0;
+#endif
 
-uint16_t Module = 0x11B;
+#define ORDER 256
 
 GF256_t alogs[ORDER];
 GF256_t logs[ORDER];
-
-uint8_t ready_to_work = 0;
 
 void GF256_init(void) {
     // порождающий элемент x + 1
