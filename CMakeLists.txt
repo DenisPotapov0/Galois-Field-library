@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(GaloisField256 VERSION 1.0.0 LANGUAGES C)
 
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_STANDARD_REQUIRED OFF)
 
 add_library(GaloisField256 STATIC src/Galois_Field_256.c)
 target_include_directories(GaloisField256 PUBLIC src)
