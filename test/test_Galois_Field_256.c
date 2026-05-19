@@ -3,17 +3,28 @@
 #include <CUnit/CUnit.h>
 #include <stdio.h>
 
-#define CU_ASSERT_MSG(expr, fmt, ...)
-do {
-    if (!(expr)) {
-        char _msg[512];
-        snprintf(_msg, sizeof(_msg), fmt, ##__VA_ARGS__);
-        CU_FAIL(_msg);
-    }
-} while (0)
+#define CU_ASSERT_MSG(expr, fmt, ...)                                                              \
+    do {                                                                                           \
+        if (!(expr)) {                                                                             \
+            char _msg[512];                                                                        \
+            snprintf(_msg, sizeof(_msg), fmt, ##__VA_ARGS__);                                      \
+            CU_FAIL(_msg);                                                                         \
+        }                                                                                          \
+    } while (0)
 
-    void
-    test_add_commutative(void) {
+// Прототипы тестовых функций
+void test_add_commutative(void);
+void test_add_associative(void);
+void test_add_neutral_elem(void);
+void test_add_inverse(void);
+void test_mul_commutative(void);
+void test_mul_associative(void);
+void test_mul_neutral_elem(void);
+void test_mul_inverse(void);
+void test_distributive(void);
+void test_div_consistency(void);
+
+void test_add_commutative(void) {
     for (uint16_t a = 0; a < 256; a++) {
         for (uint16_t b = 0; b < 256; b++) {
             CU_ASSERT_MSG(GF256_Add(a, b) == GF256_Add(b, a),
