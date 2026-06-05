@@ -13,6 +13,8 @@ typedef u8 GF256_t;
 typedef uint8_t GF256_t;
 #endif
 
+void GF256_init(void);
+
 GF256_t GF256_Add(GF256_t a, GF256_t b);
 
 GF256_t GF256_Sub(GF256_t a, GF256_t b);

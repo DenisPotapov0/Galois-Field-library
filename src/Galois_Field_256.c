@@ -6,21 +6,21 @@
 
 #ifdef __KERNEL__
 #include <linux/types.h>
-u16 Module        = 0x11B;
-u8  ready_to_work = 0;
+static u16 Module        = 0x11B;
+static u8  ready_to_work = 0;
 #else
 #include <stdint.h>
-uint16_t Module        = 0x11B;
-uint8_t  ready_to_work = 0;
+static uint16_t Module        = 0x11B;
+static uint8_t  ready_to_work = 0;
 #endif
 
 #define ORDER 256
 
-GF256_t alogs[ORDER];
-GF256_t logs[ORDER];
+static GF256_t alogs[ORDER];
+static GF256_t logs[ORDER];
 
 void GF256_init(void) {
-    // порождающий элемент x + 1
+    // generator element: x + 1
     GF256_t elem = 1;  // (x + 1)**0
 
     for (int i = 0; i < ORDER - 1; i++) {
@@ -67,7 +67,7 @@ GF256_t GF256_Mul(GF256_t a, GF256_t b) {
     return alogs[sum];
 }
 
-GF256_t inverse_mul_element(GF256_t a) {
+static GF256_t inverse_mul_element(GF256_t a) {
     if (a == 0) {
         return 0;
     }

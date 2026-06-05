@@ -1,3 +1,7 @@
+
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Denis Potapov
+
 #include "Galois_Field_256.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
@@ -12,7 +16,6 @@
         }                                                                                          \
     } while (0)
 
-// Прототипы тестовых функций
 void test_add_commutative(void);
 void test_add_associative(void);
 void test_add_neutral_elem(void);

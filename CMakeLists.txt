@@ -4,6 +4,22 @@ project(GaloisField256 VERSION 1.0.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED OFF)
 
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+option(ENABLE_ASAN "Enable AddressSanitizer" OFF)
+if(ENABLE_ASAN)
+    add_compile_options(-fsanitize=address -fno-omit-frame-pointer -g)
+    add_link_options(-fsanitize=address)
+endif()
+
+option(ENABLE_UBSAN "Enable UndefinedBehaviorSanitizer" OFF)
+if(ENABLE_UBSAN)
+    add_compile_options(-fsanitize=undefined -g)
+    add_link_options(-fsanitize=undefined)
+endif()
+
 add_library(GaloisField256 STATIC src/Galois_Field_256.c)
 target_include_directories(GaloisField256 PUBLIC src)
 

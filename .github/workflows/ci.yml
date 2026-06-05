@@ -31,3 +31,12 @@ jobs:
 
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
+
+      - name: Configure with ASAN
+        run: cmake -B build-asan -DENABLE_ASAN=ON
+
+      - name: Build with ASAN
+        run: cmake --build build-asan
+
+      - name: Run tests with ASAN
+        run: ctest --test-dir build-asan --output-on-failure

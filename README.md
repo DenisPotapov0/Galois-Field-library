@@ -1,3 +1,5 @@
+[![CI](https://github.com/DenisPotapov0/Galois-Field-library/actions/workflows/ci.yml/badge.svg)](https://github.com/DenisPotapov0/Galois-Field-library/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 # Galois-Field-library
 
 Библиотека для выполнения арифметических операций в конечном поле Галуа **GF(256)**. Реализованы сложение, вычитание, умножение и деление с использованием таблиц логарифмов и антилогарифмов по модулю неприводимого полинома `0x11B` (x^8 + x^4 + x^3 + x + 1).
