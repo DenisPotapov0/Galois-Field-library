@@ -16,20 +16,24 @@
 ## Структура проекта
 
 ```
-.
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── src/
-│   ├── Galois_Field_256.c       # реализация
-│   └── Galois_Field_256.h       # заголовочный файл
+│   ├── Galois_Field_256.c
+│   └── Galois_Field_256.h
 ├── test/
-│   └── test_Galois_Field_256.c  # модульные тесты
-├── CMakeLists.txt               # конфигурация сборки
+│   └── test_Galois_Field_256.c
+├── .clang-format
+├── .gitignore
+├── CMakeLists.txt
 ├── LICENSE
 └── README.md
 ```
 
 ## Требования
 
-- Компилятор C с поддержкой C99.
+- Компилятор C с поддержкой C99 или более нового стандарта (C11, C17, C23).
 - CMake (≥ 3.10).
 - CUnit (libcunit1-dev) — для сборки тестов.
 
@@ -60,6 +64,7 @@ int main(void) {
     return 0;
 }
 ```
+Ошибка деления на 0 никак не обрабатывается, функция GF256_Div просто возвращает 0.
 
 ### API
 
